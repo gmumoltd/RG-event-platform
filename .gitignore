@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+output/*
+!output/.gitkeep
+logs/*.log
+logs/token_usage.csv
+!logs/.gitkeep
+.venv/
+*.egg-info/

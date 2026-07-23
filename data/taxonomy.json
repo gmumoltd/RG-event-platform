@@ -1,0 +1,30 @@
+{
+  "categories": {
+    "music": {
+      "label": "Music",
+      "subtypes": ["concert"]
+    },
+    "technology": {
+      "label": "Technology",
+      "subtypes": ["conference", "webinar"]
+    },
+    "business": {
+      "label": "Business",
+      "subtypes": ["conference", "webinar"]
+    }
+  },
+  "subtypes": {
+    "concert": {
+      "label": "Concert",
+      "template": "concert.html"
+    },
+    "conference": {
+      "label": "Conference",
+      "template": "conference.html"
+    },
+    "webinar": {
+      "label": "Webinar",
+      "template": "webinar.html"
+    }
+  }
+}

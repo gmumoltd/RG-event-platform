@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ meta.title }}</title>
+  <meta name="description" content="{{ meta.description }}">
+  <meta name="robots" content="{{ meta.robots }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% for key, value in og.items() %}
+  <meta property="{{ key }}" content="{{ value }}">
+  {% endfor %}
+
+  {% for key, value in twitter.items() %}
+  <meta name="{{ key }}" content="{{ value }}">
+  {% endfor %}
+
+  <script type="application/ld+json">
+{{ schema_json | safe }}
+  </script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}event-page{% endblock %}">
+  <header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      {% for crumb in links.breadcrumbs %}<a href="{{ crumb.url }}">{{ crumb.label }}</a>{% if not loop.last %} &rsaquo; {% endif %}{% endfor %}
+    </nav>
+  </header>
+
+  <main>
+    <h1>{{ content.h1 }}</h1>
+
+    {% if images %}
+    <figure class="hero-image">
+      <img src="images/{{ images.filename }}" alt="{{ images.alt_text }}"
+           {% if images.width %}width="{{ images.width }}"{% endif %}
+           {% if images.height %}height="{{ images.height }}"{% endif %}>
+      {% if images.caption %}<figcaption>{{ images.caption }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+
+    <article class="event-body">
+      {% block content %}
+      {{ content.body_html | safe }}
+      {% endblock %}
+    </article>
+
+    {% if links.related_links %}
+    <aside class="related-links">
+      <h2>Related Events</h2>
+      <ul>
+        {% for link in links.related_links %}
+        <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+    {% endif %}
+
+    <nav class="internal-links">
+      {% for link in links.internal_links %}
+      <a href="{{ link.url }}">{{ link.label }}</a>
+      {% endfor %}
+    </nav>
+  </main>
+
+  <footer>
+    <p>&copy; {{ site_name }}</p>
+  </footer>
+</body>
+</html>

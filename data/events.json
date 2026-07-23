@@ -1,0 +1,60 @@
+[
+  {
+    "name": "Nairobi Sunset Sessions",
+    "subtype": "concert",
+    "category": "music",
+    "location": "Uhuru Gardens, Nairobi",
+    "date": "2026-09-12",
+    "organizer": "Sunset Sessions Collective",
+    "description": "An open-air evening of live Afrobeat and jazz fusion performances.",
+    "tags": ["live music", "outdoor", "afrobeat"]
+  },
+  {
+    "name": "East Africa DevCon",
+    "subtype": "conference",
+    "category": "technology",
+    "location": "KICC, Nairobi",
+    "date": "2026-10-04",
+    "organizer": "DevCon East Africa",
+    "description": "A two-day gathering for software engineers, covering cloud, AI, and mobile development.",
+    "tags": ["software", "cloud", "ai"]
+  },
+  {
+    "name": "Scaling SaaS in Africa",
+    "subtype": "webinar",
+    "category": "business",
+    "date": "2026-08-20",
+    "organizer": "Founders Network",
+    "description": "A free online session on go-to-market strategy for SaaS founders scaling across African markets.",
+    "tags": ["saas", "startups", "growth"]
+  },
+  {
+    "name": "Lakeside Jazz Festival",
+    "subtype": "concert",
+    "category": "music",
+    "location": "Lake Naivasha Resort",
+    "date": "2026-11-01",
+    "organizer": "Lakeside Music Trust",
+    "description": "A weekend jazz festival featuring regional and international artists.",
+    "tags": ["jazz", "festival"]
+  },
+  {
+    "name": "Product Leaders Summit",
+    "subtype": "conference",
+    "category": "business",
+    "location": "Radisson Blu, Nairobi",
+    "date": "2026-09-28",
+    "organizer": "Product Guild",
+    "description": "A gathering of product managers and leaders sharing case studies on building for African markets.",
+    "tags": ["product management", "leadership"]
+  },
+  {
+    "name": "Intro to Prompt Engineering",
+    "subtype": "webinar",
+    "category": "technology",
+    "date": "2026-08-05",
+    "organizer": "AI Learners Guild",
+    "description": "A beginner-friendly session covering practical prompt engineering techniques.",
+    "tags": ["ai", "beginner", "training"]
+  }
+]

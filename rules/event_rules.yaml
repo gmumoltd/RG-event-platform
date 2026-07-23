@@ -1,0 +1,92 @@
+# rules/event_rules.yaml
+# ------------------------------------------------------------------
+# Rule-driven configuration for every event subtype. No SEO pattern,
+# section list, image alt-text pattern, or linking rule is hardcoded
+# in Python - it all comes from here, per the brief's "Avoid
+# hardcoded rules" requirement.
+#
+# Every subtype block supports:
+#   template:            Jinja2 template file (templates/<name>)
+#   seo.title_pattern:        {event_name} / {event_slug} / {category} placeholders
+#   seo.meta_description:     same placeholders
+#   seo.slug_pattern:         same placeholders (defines the output filename)
+#   content.sections:         ordered list of section headings to generate copy for
+#   images.alt_pattern:       {event_name} placeholder
+#   images.search_query_pattern: query handed to the image scraper
+#   linking.max_related:      how many same-subtype events to link to
+#
+# 'default' is required - it's the fallback used for any subtype with
+# no dedicated block (see utils/validator.py, config/constants.py).
+# ------------------------------------------------------------------
+
+default:
+  template: base.html
+  seo:
+    title_pattern: "{event_name} | Event Guide"
+    meta_description: "Everything you need to know about {event_name}: schedule, location, and how to attend."
+    slug_pattern: "events/{event_slug}"
+  content:
+    sections:
+      - Overview
+      - Schedule
+      - Location
+      - How to Attend
+  images:
+    alt_pattern: "Photo related to {event_name}"
+    search_query_pattern: "{event_name} event"
+  linking:
+    max_related: 4
+
+concert:
+  template: concert.html
+  seo:
+    title_pattern: "{event_name} Concert Tickets, Lineup & Venue Info"
+    meta_description: "Get tickets, set times, lineup, and venue details for {event_name}."
+    slug_pattern: "concerts/{event_slug}"
+  content:
+    sections:
+      - Lineup
+      - Venue & Doors
+      - Tickets
+      - FAQs
+  images:
+    alt_pattern: "Live concert photo for {event_name}"
+    search_query_pattern: "{event_name} concert live performance"
+  linking:
+    max_related: 4
+
+conference:
+  template: conference.html
+  seo:
+    title_pattern: "{event_name} | Conference Agenda, Speakers & Registration"
+    meta_description: "Explore the agenda, speakers, and registration details for {event_name}."
+    slug_pattern: "conferences/{event_slug}"
+  content:
+    sections:
+      - Agenda
+      - Speakers
+      - Registration
+      - Venue & Travel
+  images:
+    alt_pattern: "Conference hall photo for {event_name}"
+    search_query_pattern: "{event_name} conference audience"
+  linking:
+    max_related: 5
+
+webinar:
+  template: webinar.html
+  seo:
+    title_pattern: "{event_name} | Free Webinar Registration"
+    meta_description: "Register for {event_name}, a free online webinar. Save your spot today."
+    slug_pattern: "webinars/{event_slug}"
+  content:
+    sections:
+      - What You'll Learn
+      - Speakers
+      - Registration
+      - Access Details
+  images:
+    alt_pattern: "Webinar promo graphic for {event_name}"
+    search_query_pattern: "{event_name} webinar online presentation"
+  linking:
+    max_related: 3
