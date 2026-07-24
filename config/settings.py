@@ -59,6 +59,17 @@ class Settings:
     site_name: str = field(default_factory=lambda: os.getenv("SITE_NAME", "Event Platform"))
     twitter_handle: str = field(default_factory=lambda: os.getenv("TWITTER_HANDLE", "@events"))
 
+    # --- Image sourcing ------------------------------------------------------
+    # "redgiant" -> ImageAgent scrapes live candidate images from
+    #               REDGIANT_SITE_URL (default run mode - this is the pilot).
+    # "null"     -> no network calls; every page gets a placeholder image.
+    image_source: str = field(
+        default_factory=lambda: os.getenv("IMAGE_SOURCE", constants.IMAGE_SOURCE_REDGIANT).strip().lower()
+    )
+    redgiant_site_url: str = field(
+        default_factory=lambda: os.getenv("REDGIANT_SITE_URL", "https://redgiant.co.ke").rstrip("/")
+    )
+
     # --- Behaviour flags -----------------------------------------------------
     log_level: str = field(default_factory=lambda: os.getenv("LOG_LEVEL", "INFO").upper())
     log_json: bool = field(default_factory=lambda: _env_bool("LOG_JSON", False))
@@ -79,6 +90,11 @@ class Settings:
             raise ValueError(
                 "AI_PROVIDER is set to 'claude' but no CLAUDE_API_KEY "
                 "(or ANTHROPIC_API_KEY) was found in the environment."
+            )
+        if self.image_source not in constants.SUPPORTED_IMAGE_SOURCES:
+            raise ValueError(
+                f"Unsupported IMAGE_SOURCE '{self.image_source}'. "
+                f"Expected one of: {', '.join(constants.SUPPORTED_IMAGE_SOURCES)}"
             )
 
 
@@ -118,3 +134,24 @@ def get_ai_provider(settings: Optional[Settings] = None):
     from providers.mock_provider import MockProvider
 
     return MockProvider()
+
+
+def get_image_scraper(settings: Optional[Settings] = None):
+    """Factory: build the configured ImageScraper implementation.
+
+    Mirrors `get_ai_provider` above - one env var (`IMAGE_SOURCE`)
+    switches the whole platform between live scraping and an offline
+    placeholder, and `PipelineRunner` depends only on the `ImageScraper`
+    interface (scraper/image_scraper.py), never on a concrete class.
+    """
+    settings = settings or get_settings()
+    settings.validate()
+
+    if settings.image_source == constants.IMAGE_SOURCE_REDGIANT:
+        from scraper.image_scraper import RedGiantImageScraper
+
+        return RedGiantImageScraper(base_url=settings.redgiant_site_url)
+
+    from scraper.image_scraper import NullImageScraper
+
+    return NullImageScraper()
