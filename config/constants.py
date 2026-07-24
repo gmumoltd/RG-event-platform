@@ -58,3 +58,10 @@ SCHEMA_EVENT_TYPE = "Event"
 PROVIDER_MOCK = "mock"
 PROVIDER_CLAUDE = "claude"
 SUPPORTED_PROVIDERS = (PROVIDER_MOCK, PROVIDER_CLAUDE)
+
+# ---------------------------------------------------------------------------
+# Image-source identifiers (used by config.settings.get_image_scraper factory)
+# ---------------------------------------------------------------------------
+IMAGE_SOURCE_REDGIANT = "redgiant"
+IMAGE_SOURCE_NULL = "null"
+SUPPORTED_IMAGE_SOURCES = (IMAGE_SOURCE_REDGIANT, IMAGE_SOURCE_NULL)

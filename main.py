@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 
-from config.settings import get_ai_provider, get_settings
+from config.settings import get_ai_provider, get_image_scraper, get_settings
 from core.pipeline import PipelineRunner
 from utils.logger import get_logger
 
@@ -26,7 +26,13 @@ def main() -> int:
     try:
         settings.validate()
         ai_provider = get_ai_provider(settings)
-        runner = PipelineRunner(settings=settings, ai_provider=ai_provider)
+        image_scraper = get_image_scraper(settings)
+        logger.info(
+            "Image source: %s%s",
+            settings.image_source,
+            f" ({settings.redgiant_site_url})" if settings.image_source == "redgiant" else "",
+        )
+        runner = PipelineRunner(settings=settings, ai_provider=ai_provider, image_scraper=image_scraper)
         contexts = runner.run_all()
     except Exception as exc:  # noqa: BLE001 - top-level guard, log and exit non-zero
         logger.error("Pipeline run failed: %s", exc)
